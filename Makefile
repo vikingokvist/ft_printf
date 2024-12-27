@@ -13,13 +13,18 @@
 NAME = libftprintf.a
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -I ./include
 RM = rm -f
 AR = ar crs
 
-SRCS = ft_printf.c ft_printf_utils.c
+SRCS = ./standard/ft_printf.c ./standard/ft_printf_utils.c \
+	./bonus/ft_printf_bonus.c ./bonus/init_struct_bonus.c ./bonus/utils_bonus.c \
+	./bonus/utils_bonus2.c ./bonus/convert_mod_bonus.c
+
+# BONUS = 
 
 OBJS = $(SRCS:.c=.o)
+# OBJS_B = $(BONUS:.c=.o)
 
 all: $(NAME)
 
@@ -34,6 +39,9 @@ clean:
 	
 fclean: clean
 	$(RM) $(NAME)
+
+# bonus: $(OBJS_B)
+# 	$(AR) $(OBJS_B) -o $(NAME)
 	
 re: fclean all
 
