@@ -25,74 +25,87 @@ void	ft_putstring(t_printf *node, char *str)
 void	ft_putnumber(t_printf *node, int num)
 {
 	char	*number;
-	int		num_len;
-	int		i;
-	int		j;
 	int		sign;
 
 	sign = 0;
 	if (num < 0)
+	{
 		sign = 1;
-	if (sign)
 		num = -num;
+	}
 	number = ft_itoa(num);
-	num_len = ft_strlen(number);
-	i = 0;
-	while (i < node->zero_padding - num_len)
-	{
-		ft_putchars(node, '0');
-		i++;
-	}
-	if (sign)
-		ft_putchars(node, '-');
-	else if (node->sign)
-		ft_putchars(node, '+');
-	else if (node->space)
-		ft_putchars(node, ' ');
-
-	// Print the actual number
-	j = 0;
-	while (number[j])
-	{
-		ft_putchars(node, number[j]);
-		j++;
-	}
+	if (node->dot_precision)
+		number = get_dot_precision(node, number, sign);
+	if (node->left_justify)
+		number = add_left_justify(node, number);
+	else if (node->width)
+		number = add_width(node, number);
+	ft_putstring(node, number);
 }
 
+char	*get_dot_precision(t_printf *node, char *number, int sign)
+{
+	char	*new_num;
+	int		len;
+	int		i;
+	int		j;
 
-// int	ft_putnbr_hex(unsigned long long nb, int up_or_low)
-// {
-// 	int		len;
-// 	char	hex_low;
-// 	char	hex_up;
+	len = ft_strlen(number);
+	new_num = malloc(len + sign + 1 * sizeof(char));
+	if (!new_num)
+		return (number);
+	i = 0;
+	if (sign)
+		new_num[i++] = '-';
+	while (i < node->dot_precision - len + sign)
+		new_num[i++] = '0';
+	j = 0;
+	while (number[j])
+		new_num[i++] = number[j++];
+	new_num[i] = '\0';
+	free(number);
+	return (new_num);
+}
 
-// 	len = 0;
-// 	hex_low = "0123456789abcdef"[nb % 16];
-// 	hex_up = "0123456789ABCDEF"[nb % 16];
-// 	if (nb >= 16)
-// 		len += ft_putnbr_hex(nb / 16, up_or_low);
-// 	if (up_or_low == 0)
-// 		len += ft_putchar(hex_low);
-// 	else
-// 		len += ft_putchar(hex_up);
-// 	return (len);
-// }
+char	*add_width(t_printf *node, char *number)
+{
+	char	*new_num;
+	int		len;
+	int		i;
+	int		j;
 
+	len = ft_strlen(number);
+	new_num = malloc(len + node->width + 1 * sizeof(char));
+	if (!new_num)
+		return (number);
+	i = 0;
+	while (i < node->width - len)
+		new_num[i++] = ' ';
+	j = 0;
+	while (number[j])
+		new_num[i++] = number[j++];
+	new_num[i] = '\0';
+	free(number);
+	return (new_num);
+}
 
+char	*add_left_justify(t_printf *node, char *number)
+{
+	char	*new_num;
+	int		j;
+	int		i;
 
-// int	ft_putptr(void *ptr)
-// {
-// 	int					len;
-// 	unsigned long long	temp;
+	new_num = malloc(node->width + 1 * sizeof(char));
+	if (!new_num)
+		return (number);
+	i = 0;
+	j = 0;
+	while (number[j])
+		new_num[i++] = number[j++];
+	while (i < node->width)
+		new_num[i++] = ' ';
+	new_num[i] = '\0';
+	free(number);
+	return (new_num);
+}
 
-// 	temp = (unsigned long long)ptr;
-// 	len = 0;
-// 	if (!ptr)
-// 	{
-// 		write(1, "(nil)", 5);
-// 		return (5);
-// 	}
-// 	len += ft_putstr("0x");
-// 	len += ft_putnbr_hex(temp, 0);
-// 	return (len);
-// }

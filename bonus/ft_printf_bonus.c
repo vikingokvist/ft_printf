@@ -51,21 +51,26 @@ char	*init_modifiers(t_printf *node, char *str)
 	{
 		if (*str == '+')
 			node->sign = true;
-		if (*str == ' ')
-			node->space = true;
 		if (*str == '#')
 			node->prefixes = true;
-		if (*str == '-')
+		if (*str == ' ')
+			node->space = true;
+		else if (*str == '-')
 		{
 			str = get_padding(str, &(node->left_justify));
 		}
-		if (*str == '0')
+		else if (*str == '0')
 		{
 			str = get_padding(str, &(node->zero_padding));
 		}
-		if (*str == '.')
+		else if (*str == '.')
 		{
 			str = get_padding(str, &(node->dot_precision));
+		}
+		else if (*str >= '1' && *str <= '9')
+		{
+			str--;
+			str = get_padding(str, &(node->width));
 		}
 		str++;
 	}
@@ -84,6 +89,8 @@ char	*get_padding(char *str, int	*padding)
 			str++;
 		}
 	}
+	else
+		*padding = 1;
 	str--;
 	return (str);
 }

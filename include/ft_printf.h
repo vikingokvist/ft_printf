@@ -29,14 +29,15 @@ typedef struct s_printf
     char    *result;
     char    *null_error;
     char    *nil_error;
+    char    modifier;
     int     len;
     int     left_justify;
     int     zero_padding;
     int     dot_precision;
+    int     width;
     t_bool     prefixes;
     t_bool     sign;
     t_bool     space;
-    char    modifier;
 }   t_printf;
 
 //--------------------------------------------------------------MAIN
@@ -54,6 +55,9 @@ void	convert_modifiers(t_printf *node, va_list args);
 void	ft_putchars(t_printf *node, char c);
 void	ft_putstring(t_printf *node, char *str);
 void	ft_putnumber(t_printf *node, int num);
+char	*get_dot_precision(t_printf *node, char *number, int sign);
+char	*add_width(t_printf *node, char *number);
+char	*add_left_justify(t_printf *node, char *number);
 //--------------------------------------------------------------INIT_STRUCT
 t_printf	*init_struct(t_printf *node);
 void	init_node(t_printf *node);
