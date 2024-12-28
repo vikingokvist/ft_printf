@@ -15,42 +15,45 @@ void	ft_putnumber(t_printf *node, int num)
 		num = -num;
 	}
 	number = ft_itoa(num);
-	if (node->dot_precision)
+    if (node->dot_precision && node->zero_padding)
     {
-        printf("dot_presicion = %d\n", node->dot_precision);
+        number = add_padding(node, number, node->dot_precision, '0');
+        number = add_padding(node, number, node->zero_padding, ' ');
+    }
+	else if (node->dot_precision && !node->zero_padding)
+    {
 		number = add_padding(node, number, node->dot_precision, '0');
     }
-    else if (node->zero_padding)
+    else if (!node->dot_precision && node->zero_padding)
     {
-        printf("zero_padding = %d\n", node->zero_padding);
-        number = add_padding(node, number, node->zero_padding, '0');
+		number = add_padding(node, number, node->zero_padding, '0');
     }
 	if (node->left_justify)
     {
-        printf("left_justify = %d\n", node->left_justify);
 		number = add_padding(node, number, node->left_justify, ' ');
     }
 	else if (node->width)
     {
-        printf("width = %d\n", node->width);
 		number = add_padding(node, number, node->width, ' ');
     }
     if (node->sign)
     {
-        // printf("sign = %c\n", sign);
-        number = add_sign(number, sign);
+        if (!node->zero_padding)
+            number = add_sign(number, sign, 1);
+        else
+            number = add_sign(number, sign, 0);
     }
 	ft_putstring(node, number);
 }
 
-char    *add_sign(char *number, char sign)
+char    *add_sign(char *number, char sign, int add_extra)
 {
     char    *new_num;
     int     len;
     int     i;
     int     j;
 
-    len = ft_strlen(number);
+    len = ft_strlen(number) + add_extra;
     new_num = malloc((len + 1) * sizeof(char));
     if (!new_num)
         return (number);
@@ -59,7 +62,7 @@ char    *add_sign(char *number, char sign)
     if (number[i] == '0')
     {
         new_num[j++] = sign;
-        i++;
+        i = !add_extra;
     }
     while (number[i] == ' ')
     {
@@ -67,7 +70,7 @@ char    *add_sign(char *number, char sign)
         if (number[i] >= '0' && number[i] <= '9')
             new_num[j - 1] = sign;
     }
-    while (number[i])
+    while (i < len)
         new_num[j++] = number[i++];
     new_num[i] = '\0';
     free(number);
@@ -126,31 +129,3 @@ void    fill_padding_left(char *new_num, char *number, char c, int padding)
 		new_num[i++] = c;
     new_num[i] = '\0';
 }
-
-
-// char	*add_left_justify(t_printf *node, char *number)
-// {
-// 	char	*new_num;
-// 	int		padding;
-//     int		len;
-// 	int		j;
-// 	int		i;
-	
-// 	len = ft_strlen(number);
-// 	padding = node->left_justify - len;
-// 	if (padding < 0)
-// 		padding = 0;
-// 	new_num = malloc((len + padding + 1) * sizeof(char));
-// 	if (!new_num)
-// 		return (number);
-// 	i = 0;
-// 	j = 0;
-// 	while (number[j])
-// 		new_num[i++] = number[j++];
-// 	while (padding-- > 0)
-// 		new_num[i++] = ' ';
-// 	new_num[i] = '\0';
-// 	free(number);
-// 	return (new_num);
-// }
-

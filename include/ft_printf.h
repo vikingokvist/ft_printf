@@ -58,7 +58,7 @@ void	ft_putnumber(t_printf *node, int num);
 char	*add_padding(t_printf *node, char *number, int padding_type, char c);
 void    fill_padding_right(char *new_num, char *number, char c, int padding);
 void    fill_padding_left(char *new_num, char *number, char c, int padding);
-char    *add_sign(char *number, char sign);
+char    *add_sign(char *number, char sign, int add_extra);
 //--------------------------------------------------------------INIT_STRUCT
 t_printf	*init_struct(t_printf *node);
 void	init_node(t_printf *node);

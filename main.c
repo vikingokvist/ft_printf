@@ -14,18 +14,20 @@ int     main(void)
     printf("-----------------------------\n");
     ft_printfb("My fav number is = [%05d]\n", -42);
         printf("OG fav number is = [%05d]\n", -42);
-
+    printf("-----------------------------\n");
     ft_printfb("My fav number is = [%10.5d]\n", -42);
         printf("OG fav number is = [%10.5d]\n", -42);
-
+    printf("-----------------------------\n");
     ft_printfb("My fav number is = [%010.5d]\n", -42);
         printf("OG fav number is = [%010.5d]\n", -42);
-
     printf("-----------------------------\n");
     ft_printfb("My fav number is = [%.5d]\n", -42);
         printf("OG fav number is = [%.5d]\n", -42);
-
     printf("-----------------------------\n");
+    ft_printfb("My fav number is = [%-.5d]\n", -42);
+        printf("OG fav number is = [%-.5d]\n", -42);
+    printf("-----------------------------\n");
+
     // ft_printfb("My fav number is = [%-05d]\n", -42);
     //     printf("OG fav number is = [%-05d]\n", -42);
     return (0);
