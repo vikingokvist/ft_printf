@@ -51,9 +51,9 @@ char	*init_modifiers(t_printf *node, char *str)
 	{
 		if (*str == '+')
 			node->sign = 1;
-		if (*str == '#')
+		else if (*str == '#')
 			node->prefixes = true;
-		if (*str == ' ')
+		else if (*str == ' ')
 			node->space = true;
 		else if (*str == '-')
 			node->left_justify = -1;
@@ -61,7 +61,7 @@ char	*init_modifiers(t_printf *node, char *str)
 			node->zero_padding = -1;
 		else if (*str == '.')
 			node->dot_precision = -1;
-		else if (node->dot_precision == 0 || node->left_justify == 0 || node->zero_padding == 0 || node->width == 0)
+		else if ((*str >= '1' && *str <= '9') && node->dot_precision == 0 && node->zero_padding == 0)
 		{
 			str--;
 			node->width = -1;
@@ -95,7 +95,7 @@ char	*get_padding(t_printf *node, char *str)
 		node->dot_precision = padding;
 	else if (node->zero_padding == -1)
 		node->zero_padding = padding;
-	else if (node->width == -1)
+	else if (node->width == -1 && node->dot_precision == 0)
 		node->width = padding;
 	str--;
 	return (str);

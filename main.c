@@ -11,22 +11,22 @@ int     main(void)
     // ft_printfb("My fav char is = %c\n", x);
     // ft_printfb("My fav str is = %s\n", str);
     // ft_printfb("My fav null_str is = %s\n", null_str);
-    printf("-----------------------------\n");
+    printf("--------------------------------- (05d)\n");
     ft_printfb("My fav number is = [%05d]\n", -42);
         printf("OG fav number is = [%05d]\n", -42);
-    printf("-----------------------------\n");
+    printf("--------------------------------- (10.5d)\n");
     ft_printfb("My fav number is = [%10.5d]\n", -42);
         printf("OG fav number is = [%10.5d]\n", -42);
-    printf("-----------------------------\n");
+    printf("--------------------------------- (010.5d)\n");
     ft_printfb("My fav number is = [%010.5d]\n", -42);
         printf("OG fav number is = [%010.5d]\n", -42);
-    printf("-----------------------------\n");
+    printf("--------------------------------- (.5d)\n");
     ft_printfb("My fav number is = [%.5d]\n", -42);
         printf("OG fav number is = [%.5d]\n", -42);
-    printf("-----------------------------\n");
+    printf("-------------------------------- (-.5d)\n");
     ft_printfb("My fav number is = [%-.5d]\n", -42);
         printf("OG fav number is = [%-.5d]\n", -42);
-    printf("-----------------------------\n");
+    printf("---------------------------------\n");
 
     // ft_printfb("My fav number is = [%-05d]\n", -42);
     //     printf("OG fav number is = [%-05d]\n", -42);

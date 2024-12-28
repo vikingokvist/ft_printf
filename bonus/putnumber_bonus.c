@@ -21,29 +21,18 @@ void	ft_putnumber(t_printf *node, int num)
         number = add_padding(node, number, node->zero_padding, ' ');
     }
 	else if (node->dot_precision && !node->zero_padding)
-    {
 		number = add_padding(node, number, node->dot_precision, '0');
-    }
     else if (!node->dot_precision && node->zero_padding)
-    {
 		number = add_padding(node, number, node->zero_padding, '0');
-    }
 	if (node->left_justify)
-    {
 		number = add_padding(node, number, node->left_justify, ' ');
-    }
 	else if (node->width)
-    {
 		number = add_padding(node, number, node->width, ' ');
-    }
-    if (node->sign)
-    {
-        if (!node->zero_padding)
-            number = add_sign(number, sign, 1);
-        else
-            number = add_sign(number, sign, 0);
-    }
-	ft_putstring(node, number);
+    if (node->sign && !node->zero_padding)
+        number = add_sign(number, sign, 1);
+    else if (node->sign)
+        number = add_sign(number, sign, 0);
+    ft_putstring(node, number);
 }
 
 char    *add_sign(char *number, char sign, int add_extra)
@@ -60,10 +49,9 @@ char    *add_sign(char *number, char sign, int add_extra)
     i = 0;
     j = 0;
     if (number[i] == '0')
-    {
         new_num[j++] = sign;
+    if (number[i] == '0')
         i = !add_extra;
-    }
     while (number[i] == ' ')
     {
         new_num[j++] = number[i++];
@@ -73,8 +61,7 @@ char    *add_sign(char *number, char sign, int add_extra)
     while (i < len)
         new_num[j++] = number[i++];
     new_num[i] = '\0';
-    free(number);
-    return (new_num);
+    return (free(number), new_num);
 }
 
 char	*add_padding(t_printf *node, char *number, int padding_type, char c)
@@ -90,7 +77,11 @@ char	*add_padding(t_printf *node, char *number, int padding_type, char c)
     new_num = malloc((len + padding + 1) * sizeof(char));
 	if (!new_num)
 		return (number);
-    if (node->left_justify)
+    if (node->left_justify && node->dot_precision)
+    {
+        fill_padding_right(new_num, number, c, padding);
+    }
+    else if (node->left_justify)
     {
         fill_padding_left(new_num, number, c, padding);
     }
