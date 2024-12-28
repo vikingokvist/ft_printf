@@ -16,8 +16,9 @@ t_printf	*init_struct(t_printf *node)
 void	init_node(t_printf *node)
 {
     node->prefixes = false;
-    node->sign = false;
     node->space = false;
+    node->sign = 0;
+    node->width = 0;
 	node->dot_precision = 0;
     node->left_justify = 0;
     node->zero_padding = 0;

@@ -6,16 +6,28 @@ int     main(void)
     char    str[12] = "HELLO WORLD";
     char    *null_str = NULL;
     int     pos_int = 42;
-    int     neg_int = 42;
+    int     neg_int = -42;
 
     // ft_printfb("My fav char is = %c\n", x);
     // ft_printfb("My fav str is = %s\n", str);
     // ft_printfb("My fav null_str is = %s\n", null_str);
-    ft_printfb("My fav number is = [%10.5d]\n", pos_int);
-    printf("OG fav number is = [%10.5d]\n", pos_int);
-    ft_printfb("My fav number is = [%-10.5d]\n", neg_int);
-    printf("OG fav number is = [%-10.5d]\n", neg_int);
+    printf("-----------------------------\n");
+    ft_printfb("My fav number is = [%05d]\n", -42);
+        printf("OG fav number is = [%05d]\n", -42);
 
+    ft_printfb("My fav number is = [%10.5d]\n", -42);
+        printf("OG fav number is = [%10.5d]\n", -42);
+
+    ft_printfb("My fav number is = [%010.5d]\n", -42);
+        printf("OG fav number is = [%010.5d]\n", -42);
+
+    printf("-----------------------------\n");
+    ft_printfb("My fav number is = [%.5d]\n", -42);
+        printf("OG fav number is = [%.5d]\n", -42);
+
+    printf("-----------------------------\n");
+    // ft_printfb("My fav number is = [%-05d]\n", -42);
+    //     printf("OG fav number is = [%-05d]\n", -42);
     return (0);
 }
 /*
