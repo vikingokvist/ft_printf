@@ -51,14 +51,3 @@ void    check_combination(t_printf *node)
     }
 }
 
-void    reset_combination(t_printf *node)
-{
-    if (node->dot_precision > 0)
-        node->dot_precision = 0;
-    if (node->zero_padding > 0)
-        node->zero_padding = 0;
-    if (node->left_justify > 0)
-        node->left_justify = 0;
-    if (node->width > 0)
-        node->width = 0;
-}

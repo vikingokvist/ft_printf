@@ -9,6 +9,7 @@ void	ft_putchars(t_printf *node, char c)
 	node->full_str = ft_realloc(node->full_str, len + 1, len + 2);
 	node->full_str[len] = c;
 	node->full_str[len + 1] = '\0';
+	write(1, &c, 1);
 }
 
 void	ft_putstring(t_printf *node, char *str)
