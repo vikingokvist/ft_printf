@@ -22,6 +22,25 @@ void	*ft_realloc(void *ptr, size_t cur_size, size_t new_size)
 	return (new_ptr);
 }
 
+void	*ft_memcpy(void *dest, const void *src, size_t n)
+{
+	unsigned char		*dest_temp;
+	const unsigned char	*src_temp;
+	size_t				i;
+
+	if (!dest && !src)
+		return (NULL);
+	dest_temp = (unsigned char *)dest;
+	src_temp = (const unsigned char *)src;
+	i = 0;
+	while (i < n)
+	{
+		dest_temp[i] = src_temp[i];
+		i++;
+	}
+	return (dest);
+}
+
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*res;
@@ -63,25 +82,6 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
-{
-	unsigned char		*dest_temp;
-	const unsigned char	*src_temp;
-	size_t				i;
-
-	if (!dest && !src)
-		return (NULL);
-	dest_temp = (unsigned char *)dest;
-	src_temp = (const unsigned char *)src;
-	i = 0;
-	while (i < n)
-	{
-		dest_temp[i] = src_temp[i];
-		i++;
-	}
-	return (dest);
-}
-
 char	*ft_strdup(const char *s)
 {
 	char	*temp;
@@ -98,4 +98,55 @@ char	*ft_strdup(const char *s)
 	}
 	temp[i] = '\0';
 	return (temp);
+}
+
+static int	ft_int_len(int n)
+{
+	int	count;
+
+	count = 0;
+	if (n != 0)
+	{
+		if (n < 0)
+		{
+			n = n *(-1);
+			count++;
+		}
+		while (n != 0)
+		{
+			n = n / 10;
+			count++;
+		}
+	}
+	else
+		count = 1;
+	return (count);
+}
+
+char	*ft_itoa(int n)
+{
+	int			len;
+	char		*res;
+	long int	nbr;
+
+	len = ft_int_len(n);
+	nbr = n;
+	res = malloc((len + 1));
+	if (!res)
+		return (NULL);
+	if (nbr < 0)
+	{
+		res[0] = '-';
+		nbr = -nbr;
+	}
+	if (nbr == 0)
+		res[0] = '0';
+	res[len--] = '\0';
+	while (nbr)
+	{
+		res[len] = ((nbr % 10) + '0');
+		nbr /= 10;
+		len--;
+	}
+	return (res);
 }

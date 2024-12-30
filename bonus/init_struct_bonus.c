@@ -17,7 +17,7 @@ void	init_node(t_printf *node)
 {
     node->prefixes = false;
     node->space = false;
-    node->sign = 0;
+    node->show_sign = 0;
     node->width = 0;
 	node->dot_precision = 0;
     node->left_justify = 0;
@@ -36,21 +36,5 @@ void	free_node(t_printf *node)
     //     free(node->nil_error);
     // if (node->null_error)
     //     free(node->null_error);
-
 	free(node);
 }
-
-int     is_modifier(char mod)
-{
-    return (mod == 'c'
-        || mod == 's'
-        || mod == 'p'
-        || mod == 'd'
-        || mod == 'u'
-        || mod == 'i'
-        || mod == 'i'
-        || mod == 'x'
-        || mod == 'X'
-        || mod == '%');
-}
-

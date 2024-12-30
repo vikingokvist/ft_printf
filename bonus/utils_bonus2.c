@@ -1,52 +1,64 @@
 #include "ft_printf.h"
 
-static int	ft_int_len(int n)
+int     is_modifier(char mod)
 {
-	int	count;
-
-	count = 0;
-	if (n != 0)
-	{
-		if (n < 0)
-		{
-			n = n *(-1);
-			count++;
-		}
-		while (n != 0)
-		{
-			n = n / 10;
-			count++;
-		}
-	}
-	else
-		count = 1;
-	return (count);
+    return (mod == 'c'
+        || mod == 's'
+        || mod == 'p'
+        || mod == 'd'
+        || mod == 'u'
+        || mod == 'i'
+        || mod == 'i'
+        || mod == 'x'
+        || mod == 'X'
+        || mod == '%');
 }
 
-char	*ft_itoa(int n)
+char    get_sign(t_printf *node, int *num)
 {
-	int			len;
-	char		*res;
-	long int	nbr;
+    if (*num >= 0 && node->show_sign)
+            return ('+');
+    else if (*num < 0)
+    {
+            node->show_sign = 1;
+			*num *= -1;
+            return ('-');
+    }
+    return (0);
+}
 
-	len = ft_int_len(n);
-	nbr = n;
-	res = malloc((len + 1));
-	if (!res)
-		return (NULL);
-	if (nbr < 0)
-	{
-		res[0] = '-';
-		nbr = -nbr;
-	}
-	if (nbr == 0)
-		res[0] = '0';
-	res[len--] = '\0';
-	while (nbr)
-	{
-		res[len] = ((nbr % 10) + '0');
-		nbr /= 10;
-		len--;
-	}
-	return (res);
+void    check_combination(t_printf *node)
+{
+    if (node->dot_precision > 0 && node->left_justify > 0 && node->show_sign)
+        node->left_justify--;
+    if (node->show_sign && node->space)
+        node->space = 0;
+    if (node->show_sign && node->zero_padding > 0)
+        node->zero_padding--;
+    if (node->show_sign && node->left_justify > 0)
+        node->zero_padding--;
+    if (node->width && node->zero_padding)
+        node->width = 0;
+    if (node->dot_precision > 0 && node->zero_padding > 0)
+    {
+        node->width = node->zero_padding;
+        node->zero_padding = 0;
+    }
+    if (node->left_justify > 0 && node->zero_padding > 0)
+    {
+        node->left_justify = node->zero_padding;
+        node->zero_padding = 0;
+    }
+}
+
+void    reset_combination(t_printf *node)
+{
+    if (node->dot_precision > 0)
+        node->dot_precision = 0;
+    if (node->zero_padding > 0)
+        node->zero_padding = 0;
+    if (node->left_justify > 0)
+        node->left_justify = 0;
+    if (node->width > 0)
+        node->width = 0;
 }

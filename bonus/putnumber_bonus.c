@@ -6,52 +6,67 @@ void	ft_putnumber(t_printf *node, int num)
 	char	*number;
     char    sign;
 
-    if (node->sign && num >= 0)
-        sign = '+';
-	else if (num < 0)
-	{
-        node->sign = 1;
-        sign = '-';
-		num = -num;
-	}
+    sign = get_sign(node, &num);
 	number = ft_itoa(num);
-    if (node->dot_precision && node->zero_padding)
+    check_combination(node);
+    if (node->dot_precision)
     {
         number = add_padding(node, number, node->dot_precision, '0');
-        number = add_padding(node, number, node->zero_padding, ' ');
+        //printf("dot_precision = %d | number = [%s]\n", node->dot_precision, number);
+        node->dot_precision = 0;
     }
-	else if (node->dot_precision && !node->zero_padding)
-		number = add_padding(node, number, node->dot_precision, '0');
-    else if (!node->dot_precision && node->zero_padding)
+    if (node->zero_padding)
+    {
 		number = add_padding(node, number, node->zero_padding, '0');
+        //printf("zero_padding = %d | number = [%s]\n", node->zero_padding, number);
+        node->zero_padding = 0;
+    }
 	if (node->left_justify)
+    {
 		number = add_padding(node, number, node->left_justify, ' ');
-	else if (node->width)
+        //printf("left_justify = %d | number = [%s]\n", node->left_justify, number);
+        node->left_justify = 0;
+    }
+	if (node->width)
+    {
 		number = add_padding(node, number, node->width, ' ');
-    if (node->sign && !node->zero_padding)
-        number = add_sign(number, sign, 1);
-    else if (node->sign)
-        number = add_sign(number, sign, 0);
+        //printf("width | number = [%s]\n", number);
+        node->width = 0;
+    }
+    if (node->show_sign)
+    {
+        if (node->left_justify || node->width || node->zero_padding)
+        {
+            //printf("show_sign 0 = %c\n", sign);
+            number = add_sign(number, sign, 0, ft_strlen(number));
+        }
+        else
+        {
+            //printf("show_sign 1 = %c\n", sign);
+            number = add_sign(number, sign, 1, ft_strlen(number));
+        }
+
+    }
     ft_putstring(node, number);
 }
 
-char    *add_sign(char *number, char sign, int add_extra)
+char    *add_sign(char *number, char sign, int add_extra, int len)
 {
     char    *new_num;
-    int     len;
     int     i;
     int     j;
 
-    len = ft_strlen(number) + add_extra;
-    new_num = malloc((len + 1) * sizeof(char));
+    new_num = malloc((len + add_extra + 1) * sizeof(char));
     if (!new_num)
         return (number);
     i = 0;
     j = 0;
-    if (number[i] == '0')
+    if (number[i] == '0' || number[i] != ' ')
+    {
         new_num[j++] = sign;
-    if (number[i] == '0')
-        i = !add_extra;
+        if (!add_extra && number[i] == '0')
+            i++;
+    }
     while (number[i] == ' ')
     {
         new_num[j++] = number[i++];
@@ -60,7 +75,7 @@ char    *add_sign(char *number, char sign, int add_extra)
     }
     while (i < len)
         new_num[j++] = number[i++];
-    new_num[i] = '\0';
+    new_num[len + add_extra] = '\0';
     return (free(number), new_num);
 }
 
@@ -77,11 +92,7 @@ char	*add_padding(t_printf *node, char *number, int padding_type, char c)
     new_num = malloc((len + padding + 1) * sizeof(char));
 	if (!new_num)
 		return (number);
-    if (node->left_justify && node->dot_precision)
-    {
-        fill_padding_right(new_num, number, c, padding);
-    }
-    else if (node->left_justify)
+    if (node->left_justify && !node->dot_precision)
     {
         fill_padding_left(new_num, number, c, padding);
     }
