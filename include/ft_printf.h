@@ -55,26 +55,25 @@ void	convert_modifiers(t_printf *node, va_list args);
 void	ft_putchars(t_printf *node, char c);
 void	ft_putstring(t_printf *node, char *str);
 void	ft_putnumber(t_printf *node, int num);
-char	*add_padding(t_printf *node, char *number, int padding_type, char c);
+char	*add_padding(t_printf *node, char *number, int *padding_type, char c);
 void    fill_padding_right(char *new_num, char *number, char c, int padding);
 void    fill_padding_left(char *new_num, char *number, char c, int padding);
 char    *add_sign(char *number, char sign, int add_extra, int len);
 //--------------------------------------------------------------INIT_STRUCT
 t_printf	*init_struct(t_printf *node);
 void	init_node(t_printf *node);
-char	*init_modifiers(t_printf *node, char *str);
+char	*parse_modifiers(t_printf *node, char *str);
 void	free_node(t_printf *node);
 int is_modifier(char mod);
 char    get_sign(t_printf *node, int *num);
 void    check_combination(t_printf *node);
 void    reset_combination(t_printf *node);
 //--------------------------------------------------------------UTILS_BONUS2
+char	*ft_itoa(int n);
 char	*ft_strdup(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
 void	*ft_realloc(void *ptr, size_t cur_size, size_t new_size);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
-void	ft_putchars(t_printf *node, char c);
 size_t	ft_strlen(const char *s);
-char	*ft_itoa(int n);
 
 #endif

@@ -26,33 +26,6 @@ void	init_node(t_printf *node)
     node->result = NULL;
 }
 
-char	*init_modifiers(t_printf *node, char *str)
-{
-	while (*str != '\0' && (!is_modifier(*str) || (*str >= '0' && *str <= '9')))
-	{
-		if (*str == '+')
-			node->show_sign = 1;
-		if (*str == '#')
-			node->prefixes = 1;
-		if (*str == ' ')
-			node->space = 1;
-		if (*str == '-')
-			node->left_justify = -1;
-		if (*str == '0')
-			node->zero_padding = -1;
-		if (*str == '.')
-			node->dot_precision = -1;
-		if (*str >= '1' && *str <= '9')
-			node->width = -1;
-		if (node->dot_precision == -1 || node->zero_padding == -1
-				|| node->width == -1 || node->left_justify == -1)
-			str = assign_padding(node, str);
-		str++;
-	}
-	node->modifier = *str;
-	return (str);
-}
-
 char	*assign_padding(t_printf *node, char *str)
 {
 	int		padding;

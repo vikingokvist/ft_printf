@@ -28,7 +28,7 @@ int	ft_printfb(char const *str, ...)
 			if (*str != '\0')
 			{
 				init_node(node);
-				str = init_modifiers(node, (char *)str);
+				str = parse_modifiers(node, (char *)str);
 				convert_modifiers(node, args);
 			}
 		}
@@ -36,9 +36,38 @@ int	ft_printfb(char const *str, ...)
 			ft_putchars(node, *str);
 		str++;
 	}
+	for (int i=0; node->full_str[i]; i++)
+		printf("%c", node->full_str[i]);
 	free_node(node);
 	va_end(args);
 	return (node->len);
+}
+
+char	*parse_modifiers(t_printf *node, char *str)
+{
+	while (*str != '\0' && (!is_modifier(*str) || (*str >= '0' && *str <= '9')))
+	{
+		if (*str == '+')
+			node->show_sign = 1;
+		if (*str == '#')
+			node->prefixes = 1;
+		if (*str == ' ')
+			node->space = 1;
+		if (*str == '-')
+			node->left_justify = -1;
+		if (*str == '0')
+			node->zero_padding = -1;
+		if (*str == '.')
+			node->dot_precision = -1;
+		if (*str >= '1' && *str <= '9')
+			node->width = -1;
+		if (node->dot_precision == -1 || node->zero_padding == -1
+				|| node->width == -1 || node->left_justify == -1)
+			str = assign_padding(node, str);
+		str++;
+	}
+	node->modifier = *str;
+	return (str);
 }
 
 void	convert_modifiers(t_printf *node, va_list args)
