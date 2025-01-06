@@ -55,8 +55,9 @@ void	free_node(t_printf *node);
 //--------------------------------------------------------------FUNCTIONS
 void	ft_putchars(t_printf *node, char c);
 void	ft_putstring(t_printf *node, char *str);
-void    ft_putnumber(t_printf *node, int num);
+void    ft_putnumber(t_printf *node, int num, int un_sign);
 void	ft_puthex(t_printf *node, char *hex, unsigned long nb, char prefix);
+void	ft_putpointer(t_printf *node, void *ptr);
 //--------------------------------------------------------------CONVERSIONS
 void	convert_modifiers(t_printf *node, char sign);
 void    fill_padding(t_printf *node, char *new_num, char c, int padding);
@@ -65,6 +66,7 @@ char    *add_sign(t_printf *node, char sign, int add_extra, int len);
 char    *add_prefix(t_printf *node, char sign);
 //--------------------------------------------------------------FUNCTIONS_UTILS
 char	*ft_itoa(int n);
+char    *ft_uitoa(unsigned int n);
 char	*ft_strdup(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
 void	*ft_realloc(void *ptr, size_t cur_size, size_t new_size);

@@ -93,16 +93,16 @@ void	call_modifiers(t_printf *node, va_list args)
 	else if (node->modifier == 's')
 		ft_putstring(node, va_arg(args, char *));
 	else if (node->modifier == 'd' || node->modifier == 'i')
-		ft_putnumber(node, va_arg(args, long));
+		ft_putnumber(node, va_arg(args, long), 0);
+	else if (node->modifier == 'u')
+		ft_putnumber(node, va_arg(args, unsigned long), 1);
 	else if (node->modifier == 'x')
 		ft_puthex(node, node->hex_low, va_arg(args, unsigned long), 'x');
 	else if (node->modifier == 'X')
 		ft_puthex(node, node->hex_up, va_arg(args, unsigned long), 'X');
 	else if (node->modifier == 'p')
-		ft_putptr(va_arg(args, void *));
+		ft_putpointer(node, va_arg(args, void *));
 	else if (node->modifier == '%')
 		ft_putchars(node, '%');
-	// else if (node->modifier == 'u')
-	// 	ft_putnbr_dec(va_arg(args, long));
 }
 

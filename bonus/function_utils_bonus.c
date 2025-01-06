@@ -150,3 +150,25 @@ char	*ft_itoa(int n)
 	}
 	return (res);
 }
+
+char *ft_uitoa(unsigned int n)
+{
+	char	*str;
+	unsigned int temp;
+	int		len;
+
+	temp = n;
+	len = 1;
+	while (temp /= 10)
+		len++;
+	str = malloc((len + 1) * sizeof(char));
+	if (!str)
+		return (NULL);
+	str[len] = '\0';
+	while (len--)
+	{
+		str[len] = (n % 10) + '0';
+		n /= 10;
+	}
+	return (str);
+}

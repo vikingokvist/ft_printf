@@ -3,7 +3,7 @@
 
 void	convert_modifiers(t_printf *node, char sign)
 {
-    if (node->prefixes)
+    if (node->prefixes && (node->modifier == 'x' || node->modifier == 'X' || node->modifier == 'p'))
         node->result = add_prefix(node, sign);
     if (node->dot_precision)
         node->result = add_padding(node, &node->dot_precision, '0');

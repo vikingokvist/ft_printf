@@ -24,11 +24,18 @@ void	ft_putstring(t_printf *node, char *str)
 	}
 }
 
-void    ft_putnumber(t_printf *node, int num)
+void    ft_putnumber(t_printf *node, int num, int un_sign)
 {
     char    sign;
+	unsigned int unum;
 
-    if (num >= 0 && node->show_sign)
+	sign = 0;
+	if (un_sign)
+	{
+		unum = (unsigned int)num;
+		node->result = ft_uitoa(unum);
+	}
+    else if (num >= 0 && node->show_sign)
         sign = '+';
     else if (num == -2147483648)
     {
@@ -44,7 +51,8 @@ void    ft_putnumber(t_printf *node, int num)
 		num = -num;
         sign = '-';
     }
-	node->result = ft_itoa(num);
+	if (!un_sign)
+		node->result = ft_itoa(num);
     check_combination(node);
     convert_modifiers(node, sign);
 }
@@ -76,4 +84,18 @@ void	ft_puthex(t_printf *node, char *hex, unsigned long nb, char prefix)
 		ft_putstring(node, node->result);
 		free(node->result);
 	}
+}
+
+void	ft_putpointer(t_printf *node, void *ptr)
+{
+	unsigned long long	temp;
+
+	temp = (unsigned long long)ptr;
+	if (!ptr)
+	{
+		ft_putstring(node, node->nil_error);
+		return ;
+	}
+	node->prefixes = 1;
+	ft_puthex(node, node->hex_low, temp, 1);
 }
