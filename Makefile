@@ -19,7 +19,7 @@ AR = ar crs
 
 SRCS = ./standard/ft_printf.c ./standard/ft_printf_utils.c \
 	./bonus/ft_printf_bonus.c ./bonus/init_struct_bonus.c ./bonus/utils_bonus.c \
-	./bonus/utils_bonus2.c ./bonus/putstr_bonus.c ./bonus/putnumber_bonus.c
+	./bonus/functions_bonus.c ./bonus/function_utils_bonus.c ./bonus/conversions_bonus.c
 
 # BONUS = 
 

@@ -1,0 +1,79 @@
+
+#include "ft_printf.h"
+
+void	ft_putchars(t_printf *node, char c)
+{
+	int		len;
+
+	len = ft_strlen(node->full_str);
+	node->full_str = ft_realloc(node->full_str, len + 1, len + 2);
+	node->full_str[len] = c;
+	node->full_str[len + 1] = '\0';
+	node->len = ft_strlen(node->full_str);
+	write(1, &c, 1);
+}
+
+void	ft_putstring(t_printf *node, char *str)
+{
+	if (str == NULL)
+		str = node->null_error;
+	while (*str != '\0')
+	{
+		ft_putchars(node, *str);
+		str++;
+	}
+}
+
+void    ft_putnumber(t_printf *node, int num)
+{
+    char    sign;
+
+    if (num >= 0 && node->show_sign)
+        sign = '+';
+    else if (num == -2147483648)
+    {
+        node->show_sign = 0;
+        num++;
+        num *= -1;
+        num++;
+        sign = 0;
+    }
+    else if (num < 0)
+    {
+        node->show_sign = 1;
+		num = -num;
+        sign = '-';
+    }
+	node->result = ft_itoa(num);
+    check_combination(node);
+    convert_modifiers(node, sign);
+}
+
+void	ft_puthex(t_printf *node, char *hex, unsigned long nb, char prefix)
+{
+	int		len;
+	unsigned long	len_nb;
+
+	len_nb = nb;
+	len = 1;
+	while (len_nb >= 16 && ++len)
+		len_nb /= 16;
+	node->result = malloc((len + 1) * sizeof(char));
+	if (!node->result)
+		return ;
+	node->result[len--] = '\0';
+	if (nb == 0)
+		node->result[len] = '0';
+	while (nb)
+	{
+		node->result[len--] = hex[nb % 16];
+		nb /= 16;
+	}
+	if (node->prefixes)
+		convert_modifiers(node, prefix);
+	else
+	{
+		ft_putstring(node, node->result);
+		free(node->result);
+	}
+}

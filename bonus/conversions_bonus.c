@@ -1,13 +1,10 @@
 
 #include "ft_printf.h"
 
-void	ft_putnumber(t_printf *node, int num)
+void	convert_modifiers(t_printf *node, char sign)
 {
-    char    sign;
-
-    sign = get_sign(node, &num);
-	node->result = ft_itoa(num);
-    check_combination(node);
+    if (node->prefixes)
+        node->result = add_prefix(node, sign);
     if (node->dot_precision)
         node->result = add_padding(node, &node->dot_precision, '0');
     if (node->zero_padding)
@@ -26,6 +23,7 @@ void	ft_putnumber(t_printf *node, int num)
     else if (node->space)
         node->result = add_sign(node, ' ', 1, ft_strlen(node->result));
     ft_putstring(node, node->result);
+    free(node->result);
 }
 
 char    *add_sign(t_printf *node, char sign, int add_extra, int len)
@@ -48,7 +46,7 @@ char    *add_sign(t_printf *node, char sign, int add_extra, int len)
     while (node->result[i] == ' ')
     {
         new_num[j++] = node->result[i++];
-        if (node->result[i] >= '0' && node->result[i] <= '9')
+        if (ft_is_hex_or_num(node->result[i]))
             new_num[j - 1] = sign;
     }
     while (i < len)
@@ -98,4 +96,24 @@ void    fill_padding(t_printf *node, char *new_num, char c, int padding)
 		    new_num[i++] = node->result[j++];
     }
     new_num[i] = '\0';
+}
+
+char    *add_prefix(t_printf *node, char sign)
+{
+    char    *new_str;
+
+    if (sign == 'x')
+    {
+        new_str = ft_strjoin("0x", node->result);
+        if (!new_str)
+            return (node->result);
+    }
+    else
+    {
+        new_str = ft_strjoin("0X", node->result);
+        if (!new_str)
+            return (node->result);
+    }
+    free(node->result);
+    return (new_str);
 }

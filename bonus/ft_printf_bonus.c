@@ -28,15 +28,13 @@ int	ft_printfb(char const *str, ...)
 			{
 				init_node(node);
 				str = parse_modifiers(node, (char *)str);
-				convert_modifiers(node, args);
+				call_modifiers(node, args);
 			}
 		}
 		else
 			ft_putchars(node, *str);
 		str++;
 	}
-	for (int i=0; node->full_str[i]; i++)
-		printf("%c", node->full_str[i]);
 	free_node(node);
 	va_end(args);
 	return (node->len);
@@ -88,7 +86,7 @@ char	*assign_padding(t_printf *node, char *str, int *padding)
 	return (str);
 }
 
-void	convert_modifiers(t_printf *node, va_list args)
+void	call_modifiers(t_printf *node, va_list args)
 {
 	if (node->modifier == 'c')
 		ft_putchars(node, va_arg(args, int));
@@ -96,15 +94,15 @@ void	convert_modifiers(t_printf *node, va_list args)
 		ft_putstring(node, va_arg(args, char *));
 	else if (node->modifier == 'd' || node->modifier == 'i')
 		ft_putnumber(node, va_arg(args, long));
-	// else if (node->modifier == 'p')
-	// 	ft_putptr(va_arg(args, void *));
+	else if (node->modifier == 'x')
+		ft_puthex(node, node->hex_low, va_arg(args, unsigned long), 'x');
+	else if (node->modifier == 'X')
+		ft_puthex(node, node->hex_up, va_arg(args, unsigned long), 'X');
+	else if (node->modifier == 'p')
+		ft_putptr(va_arg(args, void *));
+	else if (node->modifier == '%')
+		ft_putchars(node, '%');
 	// else if (node->modifier == 'u')
 	// 	ft_putnbr_dec(va_arg(args, long));
-	// else if (node->modifier == 'x')
-	// 	ft_putnbr_hex(va_arg(args, unsigned int), 0);
-	// else if (node->modifier == 'X')
-	// 	ft_putnbr_hex(va_arg(args, unsigned int), 1);
-	// else if (node->modifier == '%')
-	// 	ft_putchar('%');
 }
 

@@ -1,4 +1,5 @@
 #include "./include/ft_printf.h"
+#include <limits.h>
 
 int     main(void)
 {
@@ -68,7 +69,7 @@ int     main(void)
     printf("--------------------------------- (+-10.5d)\n"); //NEEDS FIX
     ft_printfb("My fav number is = [%+-10.5d]\n", 42);
         printf("OG fav number is = [%+-10.5d]\n", 42);
-    printf("--------------------------------- (-010.5d)\n"); // NEEDS FIX
+    printf("--------------------------------- (-010.5d)\n");
     ft_printfb("My fav number is = [%-010.5d]\n", 42);
         printf("OG fav number is = [%-010.5d]\n", 42);
     printf("--------------------------------- (-05d)\n");
@@ -80,16 +81,45 @@ int     main(void)
     printf("--------------------------------- (-10d)\n");
     ft_printfb("My fav number is = [%-10d]\n", -42);
         printf("OG fav number is = [%-10d]\n", -42);
-
-    printf("\n\n--------------------------------- ( 010d)\n"); // NEEDS FIX
+    printf("--------------------------------- ( 010d)\n"); 
     ft_printfb("My fav number is = [% 010d]\n", 42);
         printf("OG fav number is = [% 010d]\n", 42);
-    printf("--------------------------------- (.0d)\n"); //NEEDS FIX
+    printf("--------------------------------- (.0d)\n"); //NEEDS FIX!!!!!!!!!!!
     ft_printfb("My fav number is = [%.0d]\n", 0);
         printf("OG fav number is = [%.0d]\n", 0);
     printf("--------------------------------- (d with INT_MIN)\n");
     ft_printfb("My fav number is = [%d]\n", -2147483648);
         printf("OG fav number is = [%d]\n", -2147483648);
+    printf("--------------------------------- (pos x)\n");
+    ft_printfb("My fav hexadcm is = [%X]\n", 100);
+        printf("OG fav hexadcm is = [%X]\n", 100);
+    printf("--------------------------------- (pos #x)\n");
+    ft_printfb("My fav hexadcm is = [%#x]\n", 100);
+        printf("OG fav hexadcm is = [%#x]\n", 100);
+    printf("--------------------------------- (INT_MAX x)\n");
+    ft_printfb("My fav hexadcm is = [%x]\n", INT_MAX);
+        printf("OG fav hexadcm is = [%x]\n", INT_MAX);
+    printf("--------------------------------- (neg x)\n");
+    ft_printfb("My fav hexadcm is = [%x]\n", -10);
+        printf("OG fav hexadcm is = [%x]\n", -10);
+    printf("--------------------------------- (INT_MIN x)\n");
+    ft_printfb("My fav hexadcm is = [%x]\n", INT_MIN);
+        printf("OG fav hexadcm is = [%x]\n", INT_MIN);
+    printf("--------------------------------- (neg #x)\n");
+    ft_printfb("My fav hexadcm is = [%#x]\n", -100);
+        printf("OG fav hexadcm is = [%#x]\n", -100);
+    printf("--------------------------------- (pos X)\n");
+    ft_printfb("My fav hexadcm is = [%X]\n", 100);
+        printf("OG fav hexadcm is = [%X]\n", 100);
+    printf("--------------------------------- (pos #X)\n");
+    ft_printfb("My fav hexadcm is = [%#X]\n", 100);
+        printf("OG fav hexadcm is = [%#X]\n", 100);
+    printf("--------------------------------- (neg X)\n");
+    ft_printfb("My fav hexadcm is = [%X]\n", -100);
+        printf("OG fav hexadcm is = [%X]\n", -100);
+    printf("--------------------------------- (neg #X)\n");
+    ft_printfb("My fav hexadcm is = [%#X]\n", -100);
+        printf("OG fav hexadcm is = [%#X]\n", -100);
 
 
     return (0);

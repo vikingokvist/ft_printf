@@ -7,6 +7,8 @@ t_printf	*init_struct(t_printf *node)
 		return (NULL);
 	node->null_error = ft_strdup("(null)");
 	node->nil_error = ft_strdup("(nil)");
+	node->hex_up = ft_strdup("0123456789ABCDEF");
+	node->hex_low = ft_strdup("0123456789abcdef");
 	node->len = 0;
 	node->full_str = ft_strdup("");
 	return (node);
@@ -31,10 +33,6 @@ void	free_node(t_printf *node)
 	{
 		free(node->full_str);
 	}
-	if (node->result)
-	{
-		free(node->result);
-	}
 	if (node->nil_error)
 	{
         free(node->nil_error);
@@ -42,6 +40,14 @@ void	free_node(t_printf *node)
     if (node->null_error)
 	{
         free(node->null_error);
+	}
+	if (node->hex_low)
+	{
+		free(node->hex_low);
+	}
+	if (node->hex_up)
+	{
+		free(node->hex_up);
 	}
 	free(node);
 }
