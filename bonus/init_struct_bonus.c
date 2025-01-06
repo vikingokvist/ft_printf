@@ -28,12 +28,20 @@ void	init_node(t_printf *node)
 void	free_node(t_printf *node)
 {
 	if (node->full_str)
+	{
 		free(node->full_str);
+	}
 	if (node->result)
+	{
 		free(node->result);
-    if (node->nil_error)
+	}
+	if (node->nil_error)
+	{
         free(node->nil_error);
+	}
     if (node->null_error)
+	{
         free(node->null_error);
+	}
 	free(node);
 }
