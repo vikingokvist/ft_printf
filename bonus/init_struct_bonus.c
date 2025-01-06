@@ -9,8 +9,8 @@ t_printf	*init_struct(t_printf *node)
 	node->nil_error = ft_strdup("(nil)");
 	node->hex_up = ft_strdup("0123456789ABCDEF");
 	node->hex_low = ft_strdup("0123456789abcdef");
-	node->len = 0;
 	node->full_str = ft_strdup("");
+	node->len = 0;
 	return (node);
 }
 
