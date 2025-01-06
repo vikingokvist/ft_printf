@@ -14,7 +14,6 @@ int     main(void)
     printf("--------------------------------- (04d)\n");
     ft_printfb("My fav number is = [%04d]\n", -42);
         printf("OG fav number is = [%04d]\n", -42);
-    
     printf("--------------------------------- (010d)\n");
     ft_printfb("My fav number is = [%010d]\n", -42);
         printf("OG fav number is = [%010d]\n", -42);

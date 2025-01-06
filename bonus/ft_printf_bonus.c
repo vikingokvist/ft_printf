@@ -18,8 +18,7 @@ int	ft_printfb(char const *str, ...)
 	t_printf	*node;
 
 	va_start(args, str);
-	node = NULL;
-	node = init_struct(node);
+	node = init_struct(NULL);
 	while (*str != '\0')
 	{
 		if (*str == '%')
@@ -45,6 +44,9 @@ int	ft_printfb(char const *str, ...)
 
 char	*parse_modifiers(t_printf *node, char *str)
 {
+	int		*padding;
+
+	padding = NULL;
 	while (*str != '\0' && (!is_modifier(*str) || (*str >= '0' && *str <= '9')))
 	{
 		if (*str == '+')
@@ -54,19 +56,35 @@ char	*parse_modifiers(t_printf *node, char *str)
 		if (*str == ' ')
 			node->space = 1;
 		if (*str == '-')
-			node->left_justify = -1;
-		if (*str == '0')
-			node->zero_padding = -1;
+			padding = &node->left_justify;
+		if (*str == '0' && padding == NULL)
+			padding = &node->zero_padding;
 		if (*str == '.')
-			node->dot_precision = -1;
-		if (*str >= '1' && *str <= '9')
-			node->width = -1;
-		if (node->dot_precision == -1 || node->zero_padding == -1
-				|| node->width == -1 || node->left_justify == -1)
-			str = assign_padding(node, str);
+			padding = &node->dot_precision;
+		if (*str >= '1' && *str <= '9' && padding == NULL)
+			padding = &node->width;
+		if (padding != NULL)
+			str = assign_padding(node, str, padding);
 		str++;
 	}
 	node->modifier = *str;
+	return (str);
+}
+
+char	*assign_padding(t_printf *node, char *str, int *padding)
+{
+	*padding = 0;
+	if (padding != &node->width)
+		str++;
+	if (*str && *str >= '0' && *str <= '9')
+	{
+		while (*str >= '0' && *str <= '9')
+		{
+			*padding = (*padding * 10) + (*str - '0');
+			str++;
+		}
+	}
+	str--;
 	return (str);
 }
 
