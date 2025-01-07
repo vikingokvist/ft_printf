@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf_bonus.h"
 
-int	ft_printfb(char const *str, ...)
+int	ft_printf(char const *str, ...)
 {
 	va_list		args;
 	t_printf	*node;

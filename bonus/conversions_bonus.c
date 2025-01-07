@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf_bonus.h"
 
 void	convert_modifiers(t_printf *node, char sign)
 {

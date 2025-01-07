@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf_bonus.h"
 
 t_printf	*init_struct(t_printf *node)
 {
