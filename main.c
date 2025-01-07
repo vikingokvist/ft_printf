@@ -276,7 +276,7 @@ int	main(void)
 	printf("(%d)\n", n);
 	n = printf("OG =\t[% d]\t\t- ", 42);
 	printf("(%d)\n\n", n);
-	printf("----------------------------------------- (% with padding)\n");
+	printf("----------------------------------------- (%% with padding)\n");
 	n = ft_printf("FT =\t[%5%]\t\t- ");
 	printf("(%d)\n", n);
 	n = printf("OG =\t[%5%]\t\t- ");

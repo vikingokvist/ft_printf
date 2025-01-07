@@ -28,11 +28,12 @@ void	ft_putstring(t_printf *node, char *str, int mode)
 {
 	if (str == NULL)
 		str = node->null_error;
-	if (mode && has_flag(node))
+	if (mode)
 	{
 		node->result = ft_strdup(str);
 		convert_modifiers(node, 0);
 		str = ft_strdup(node->result);
+		free(node->result);
 	}
 	while (*str != '\0')
 	{
@@ -96,8 +97,7 @@ void	ft_puthex(t_printf *node, char *hex, unsigned long nb, char prefix)
 		node->result[len--] = hex[nb % 16];
 		nb /= 16;
 	}
-	if (has_flag(node))
-		convert_modifiers(node, prefix);
+	convert_modifiers(node, prefix);
 	ft_putstring(node, node->result, 0);
 }
 
