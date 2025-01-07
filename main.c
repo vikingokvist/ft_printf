@@ -231,11 +231,6 @@ int	main(void)
 	printf("(%d)\n", n);
 	n = printf("OG =\t[%u]\t- ", -420);
 	printf("(%d)\n\n", n);
-	// printf("----------------------------------------- (s & d)\n");
-	// n = ft_printf("FT =\t[%s] and fav num = %d ", str, 42);
-	// printf("(%d)\n", n);
-	// n = printf("OG =\t[%s] and fav num = %d ", str, 42);
-	// printf("(%d)\n\n", n);
 	printf("----------------------------------------- (.0d)\n");
 	n = ft_printf("FT =\t[%.0d]\t\t- ", 0);
 	printf("(%d)\n", n);
@@ -271,7 +266,7 @@ int	main(void)
 	printf("(%d)\n", n);
 	n = printf("OG =\t[%p]\t\t- ", NULL);
 	printf("(%d)\n\n", n);
-	printf("----------------------------------------- (space flag with number)\n");
+	printf("----------------------------------------- ( d)\n");
 	n = ft_printf("FT =\t[% d]\t\t- ", 42);
 	printf("(%d)\n", n);
 	n = printf("OG =\t[% d]\t\t- ", 42);
@@ -281,17 +276,17 @@ int	main(void)
 	printf("(%d)\n", n);
 	n = printf("OG =\t[%5%]\t\t- ");
 	printf("(%d)\n\n", n);
-	printf("----------------------------------------- (-0 width and precision)\n");
+	printf("----------------------------------------- (-010.5d)\n");
 	n = ft_printf("FT =\t[%-010.5d]\t- ", 123);
 	printf("(%d)\n", n);
 	n = printf("OG =\t[%-010.5d]\t- ", 123);
 	printf("(%d)\n\n", n);
-	printf("----------------------------------------- (negative precision and width)\n");
+	printf("----------------------------------------- (0-10.5d)\n");
 	n = ft_printf("FT =\t[%0-10.5d]\t- ", -12345);
 	printf("(%d)\n", n);
 	n = printf("OG =\t[%0-10.5d]\t- ", -12345);
 	printf("(%d)\n\n", n);
-	printf("----------------------------------------- (left-align hex with padding)\n");
+	printf("----------------------------------------- (-#10x)\n");
 	n = ft_printf("FT =\t[%-#10x]\t- ", 0x1AB);
 	printf("(%d)\n", n);
 	n = printf("OG =\t[%-#10x]\t- ", 0x1AB);
@@ -321,11 +316,15 @@ int	main(void)
 	printf("(%d)\n", n);
 	n = printf("OG =\t[%-10s]\t- ", "TEST");
 	printf("(%d)\n\n", n);
-
 	printf("----------------------------------------- (#.4x)\n");
 	n = ft_printf("FT =\t[%#.4x]\t- ", 0x123);
 	printf("(%d)\n", n);
 	n = printf("OG =\t[%#.4x]\t- ", 0x123);
+	printf("(%d)\n\n", n);
+	printf("----------------------------------------- (s & d)\n");
+	n = ft_printf("FT =\t[%s] and fav num = %d ", str, 42);
+	printf("(%d)\n", n);
+	n = printf("OG =\t[%s] and fav num = %d ", str, 42);
 	printf("(%d)\n\n", n);
 	return (0);
 }

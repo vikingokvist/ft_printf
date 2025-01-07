@@ -16,8 +16,8 @@ void	convert_modifiers(t_printf *node, char sign)
 {
 	if (node->dot_precision)
 		node->result = add_padding(node, &node->dot_precision, '0');
-	if ((node->modifier == 'x'|| node->modifier == 'X' || node->modifier == 'p')
-			&& node->prefixes)
+	if (node->prefixes && (node->modifier == 'x'
+			|| node->modifier == 'X' || node->modifier == 'p'))
 		node->result = add_prefix(node, sign);
 	if (node->zero_padding)
 		node->result = add_padding(node, &node->zero_padding, '0');
@@ -28,14 +28,13 @@ void	convert_modifiers(t_printf *node, char sign)
 	if (node->show_sign)
 	{
 		if (node->left_justify || node->width || node->zero_padding)
-		node->result = add_sign(node, sign, 0, ft_strlen(node->result));
+			node->result = add_sign(node, sign, 0, ft_strlen(node->result));
 		else
-		node->result = add_sign(node, sign, 1, ft_strlen(node->result));
+			node->result = add_sign(node, sign, 1, ft_strlen(node->result));
 	}
 	else if (node->space)
-	node->result = add_sign(node, ' ', 1, ft_strlen(node->result));
+		node->result = add_sign(node, ' ', 1, ft_strlen(node->result));
 }
-
 
 char	*add_sign(t_printf *node, char sign, int add_extra, int len)
 {
