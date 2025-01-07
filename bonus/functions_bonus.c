@@ -32,13 +32,16 @@ void	ft_putstring(t_printf *node, char *str, int mode)
 	{
 		node->result = ft_strdup(str);
 		convert_modifiers(node, 0);
-		str = ft_strdup(node->result);
-		free(node->result);
+		ft_putstring(node, node->result, 0);
+		
 	}
-	while (*str != '\0')
+	else
 	{
-		ft_printchars(node, *str);
-		str++;
+		while (*str != '\0')
+		{
+			ft_printchars(node, *str);
+			str++;
+		}
 	}
 }
 

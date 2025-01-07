@@ -38,7 +38,10 @@ void	init_node(t_printf *node)
 	node->zero_padding = 0;
 	node->modifier = 0;
 	if (node->result)
+	{
 		free(node->result);
+		node->result = NULL;
+	}
 	node->result = NULL;
 }
 
