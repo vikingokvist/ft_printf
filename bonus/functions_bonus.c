@@ -21,28 +21,20 @@ void	ft_putchars(t_printf *node, char c)
 	node->result[0] = c;
 	node->result[1] = '\0';
 	convert_modifiers(node, 0);
-	ft_putstring(node, node->result, 0);
+	ft_putstring(node, node->result);
 }
 
-void	ft_putstring(t_printf *node, char *str, int mode)
+void	ft_putstring(t_printf *node, char *str)
 {
 	if (str == NULL)
-		str = node->null_error;
-	if (mode)
+		str = ft_strdup(node->null_error);
+	while (*str != '\0')
 	{
-		node->result = ft_strdup(str);
-		convert_modifiers(node, 0);
-		ft_putstring(node, node->result, 0);
-		
+		ft_printchars(node, *str);
+		str++;
 	}
-	else
-	{
-		while (*str != '\0')
-		{
-			ft_printchars(node, *str);
-			str++;
-		}
-	}
+	free(node->result);
+	node->result = NULL;
 }
 
 void	ft_putnumber(t_printf *node, int num, int un_sign)
@@ -77,7 +69,7 @@ void	ft_putnumber(t_printf *node, int num, int un_sign)
 	}
 	check_combination(node);
 	convert_modifiers(node, sign);
-	ft_putstring(node, node->result, 0);
+	ft_putstring(node, node->result);
 }
 
 void	ft_puthex(t_printf *node, char *hex, unsigned long nb, char prefix)
@@ -101,7 +93,7 @@ void	ft_puthex(t_printf *node, char *hex, unsigned long nb, char prefix)
 		nb /= 16;
 	}
 	convert_modifiers(node, prefix);
-	ft_putstring(node, node->result, 0);
+	ft_putstring(node, node->result);
 }
 
 void	ft_putpointer(t_printf *node, void *ptr)
@@ -111,7 +103,8 @@ void	ft_putpointer(t_printf *node, void *ptr)
 	temp = (unsigned long long)ptr;
 	if (!ptr)
 	{
-		ft_putstring(node, node->nil_error, 0);
+		node->result = ft_strdup(node->nil_error);
+		ft_putstring(node, node->result);
 		return ;
 	}
 	node->prefixes = 1;

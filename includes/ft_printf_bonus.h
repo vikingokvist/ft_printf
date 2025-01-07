@@ -47,7 +47,7 @@ void		call_modifiers(t_printf *node, va_list args);
 void		ft_printchars(t_printf *node, char c);
 //--------------------------------------------------------------FUNCTIONS
 void		ft_putchars(t_printf *node, char c);
-void		ft_putstring(t_printf *node, char *str, int mode);
+void		ft_putstring(t_printf *node, char *str);
 void		ft_putnumber(t_printf *node, int num, int un_sign);
 void		ft_puthex(t_printf *node, char *hex, unsigned long nb, char prefix);
 void		ft_putpointer(t_printf *node, void *ptr);
