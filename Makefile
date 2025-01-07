@@ -13,36 +13,40 @@
 NAME = libftprintf.a
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I ./include
+CFLAGS = -Wall -Wextra -Werror -I ./include -I ./libft/includes
 RM = rm -f
 AR = ar crs
 
 SRCS = ./standard/ft_printf.c ./standard/ft_printf_utils.c \
-	./bonus/ft_printf_bonus.c ./bonus/init_struct_bonus.c ./bonus/utils_bonus.c \
-	./bonus/functions_bonus.c ./bonus/function_utils_bonus.c ./bonus/conversions_bonus.c
+	./bonus/ft_printf_bonus.c ./bonus/init_struct_bonus.c \
+	./bonus/utils_bonus.c ./bonus/functions_bonus.c \
+	./bonus/conversions_bonus.c
 
-# BONUS = 
+#BONUS = 
 
 OBJS = $(SRCS:.c=.o)
-# OBJS_B = $(BONUS:.c=.o)
+LIBFT_DIR = ./libft
+LIBFT = $(LIBFT_DIR)/libft.a
 
-all: $(NAME)
+all: $(LIBFT) $(NAME)
 
-$(NAME): $(OBJS)
-	$(AR) $(NAME) $(OBJS)
-	
+$(LIBFT):
+	@$(MAKE) -C $(LIBFT_DIR)
+
+$(NAME): $(OBJS) $(LIBFT)
+	@$(AR) $(NAME) $(LIBFT) $(OBJS) 
+
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 	
 clean:
-	$(RM) $(OBJS)
+	@$(RM) $(OBJS)
+	@$(MAKE) clean -C $(LIBFT_DIR)
 	
 fclean: clean
-	$(RM) $(NAME)
+	@$(RM) $(NAME)
+	@$(MAKE) fclean -C $(LIBFT_DIR)
 
-# bonus: $(OBJS_B)
-# 	$(AR) $(OBJS_B) -o $(NAME)
-	
 re: fclean all
 
 .PHONY: all clean fclean re

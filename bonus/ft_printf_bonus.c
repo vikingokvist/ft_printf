@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_printf_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ctommasi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/30 12:22:58 by ctommasi          #+#    #+#             */
-/*   Updated: 2024/09/30 12:22:59 by ctommasi         ###   ########.fr       */
+/*   Created: 2025/01/07 12:00:56 by ctommasi          #+#    #+#             */
+/*   Updated: 2025/01/07 12:00:59 by ctommasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_printfb(char const *str, ...)
 {
-	va_list	args;
+	va_list		args;
 	t_printf	*node;
 
 	va_start(args, str);
@@ -105,4 +105,3 @@ void	call_modifiers(t_printf *node, va_list args)
 	else if (node->modifier == '%')
 		ft_putchars(node, '%');
 }
-

@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   functions_bonus.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ctommasi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/07 12:01:17 by ctommasi          #+#    #+#             */
+/*   Updated: 2025/01/07 12:01:19 by ctommasi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "ft_printf.h"
 
 void	ft_putchars(t_printf *node, char c)
 {
-	int		len;
+	int	len;
 
 	len = ft_strlen(node->full_str);
 	node->full_str = ft_realloc(node->full_str, len + 1, len + 2);
@@ -24,10 +35,10 @@ void	ft_putstring(t_printf *node, char *str)
 	}
 }
 
-void    ft_putnumber(t_printf *node, int num, int un_sign)
+void	ft_putnumber(t_printf *node, int num, int un_sign)
 {
-    char    sign;
-	unsigned int unum;
+	char			sign;
+	unsigned int	unum;
 
 	sign = 0;
 	if (un_sign)
@@ -35,31 +46,31 @@ void    ft_putnumber(t_printf *node, int num, int un_sign)
 		unum = (unsigned int)num;
 		node->result = ft_uitoa(unum);
 	}
-    else if (num >= 0 && node->show_sign)
-        sign = '+';
-    else if (num == -2147483648)
-    {
-        node->show_sign = 0;
-        num++;
-        num *= -1;
-        num++;
-        sign = 0;
-    }
-    else if (num < 0)
-    {
-        node->show_sign = 1;
+	else if (num >= 0 && node->show_sign)
+		sign = '+';
+	else if (num == -2147483648)
+	{
+		node->show_sign = 0;
+		num++;
+		num *= -1;
+		num++;
+		sign = 0;
+	}
+	else if (num < 0)
+	{
+		node->show_sign = 1;
 		num = -num;
-        sign = '-';
-    }
+		sign = '-';
+	}
 	if (!un_sign)
 		node->result = ft_itoa(num);
-    check_combination(node);
-    convert_modifiers(node, sign);
+	check_combination(node);
+	convert_modifiers(node, sign);
 }
 
 void	ft_puthex(t_printf *node, char *hex, unsigned long nb, char prefix)
 {
-	int		len;
+	int				len;
 	unsigned long	len_nb;
 
 	len_nb = nb;

@@ -1,11 +1,13 @@
 #include "./include/ft_printf.h"
 #include <limits.h>
 
-int     main(void)
+int main(void)
 {
-    void *x;
-    void *ptr = &x;
-    char *nil_ptr = NULL;
+    void    *x;
+    void    *ptr = &x;
+    char    *nil_ptr = NULL;
+    char    *null_str = NULL;
+    char    *str = "HELLO WORLD";
     int   n = 0;
 
     printf("----------------------------------------- (char)\n");
@@ -14,14 +16,14 @@ int     main(void)
         n = printf("OG fav char is = %c - ", 'X');
         printf("(%d)\n", n);
     printf("----------------------------------------- (str)\n");
-    n = ft_printfb("My fav str is = %s - ", "HELLO WORLD");
+    n = ft_printfb("My fav str is = %s - ", str);
     printf("(%d)\n", n);
-        n = printf("OG fav str is = %s - ", "HELLO WORLD");
+        n = printf("OG fav str is = %s - ", str);
         printf("(%d)\n", n);
     printf("----------------------------------------- (null)\n");
-    n = ft_printfb("My fav null_str is = %s - ", NULL);
+    n = ft_printfb("My fav null_str is = %s - ", null_str);
     printf("(%d)\n", n);
-        n = printf("OG fav null_str is = %s - ", NULL);
+        n = printf("OG fav null_str is = %s - ", null_str);
         printf("(%d)\n", n);
     printf("----------------------------------------- (04d)\n");
     n = ft_printfb("My fav number is = [%04d] - ", -42);
@@ -154,9 +156,9 @@ int     main(void)
         n = printf("OG fav number is = [%d] - ", -2147483648);
         printf("(%d)\n", n);
     printf("----------------------------------------- (pos x)\n");
-    n = n = ft_printfb("My fav hexadcm is = [%X] - ", 100);
+        n = ft_printfb("My fav hexadcm is = [%X] - ", 100);
     printf("(%d)\n", n);
-        n = n = printf("OG fav hexadcm is = [%X] - ", 100);
+            n = printf("OG fav hexadcm is = [%X] - ", 100);
         printf("(%d)\n", n);
     printf("----------------------------------------- (pos #x)\n");
     n = ft_printfb("My fav hexadcm is = [%#x] - ", 100);
