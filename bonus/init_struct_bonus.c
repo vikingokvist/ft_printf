@@ -63,4 +63,5 @@ void	free_node(t_printf *node)
 		free(node->hex_up);
 	}
 	free(node);
+	node = NULL;
 }

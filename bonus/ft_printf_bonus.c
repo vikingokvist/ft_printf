@@ -18,8 +18,7 @@ int	ft_printf(char const *str, ...)
 	t_printf	*node;
 
 	va_start(args, str);
-	node = NULL;
-	node = init_struct(node);
+	node = init_struct(NULL);
 	while (*str != '\0')
 	{
 		if (*str == '%')
@@ -94,9 +93,14 @@ void	call_modifiers(t_printf *node, va_list args)
 		ft_putchars(node, va_arg(args, int));
 	else if (node->modifier == 's')
 	{
-		node->result = ft_strdup(va_arg(args, char *));
-		convert_modifiers(node, 0);
-		ft_putstring(node, node->result);
+		if (has_flag(node))
+		{
+			node->result = ft_strdup(va_arg(args, char *));
+			convert_modifiers(node, 0);
+			ft_putstring(node, node->result);
+		}
+		else
+			ft_putstring(node, va_arg(args, char *));
 	}
 	else if (node->modifier == 'd' || node->modifier == 'i')
 		ft_putnumber(node, va_arg(args, long), 0);

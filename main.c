@@ -36,11 +36,11 @@ int	main(void)
 	// printf("(%d)\n", n);
 	// n = printf("OG =\t[%s]\t- ", str);
 	// printf("(%d)\n\n", n);
-	// printf("----------------------------------------- (null)\n");
-	// n = ft_printf("FT =\t[%s]\t- ", null_str);
-	// printf("(%d)\n", n);
-	// n = printf("OG =\t[%s]\t- ", null_str);
-	// printf("(%d)\n\n", n);
+	printf("----------------------------------------- (null)\n");
+	n = ft_printf("FT =\t[%s]\t- ", null_str);
+	printf("(%d)\n", n);
+	n = printf("OG =\t[%s]\t- ", null_str);
+	printf("(%d)\n\n", n);
 	// printf("----------------------------------------- (04d)\n");
 	// n = ft_printf("FT =\t[%04d]\t\t- ", -42);
 	// printf("(%d)\n", n);

@@ -40,33 +40,27 @@ void	ft_putstring(t_printf *node, char *str)
 void	ft_putnumber(t_printf *node, int num, int un_sign)
 {
 	char			sign;
-	unsigned int	unum;
 
 	sign = 0;
 	if (node->has_flag && num == 0 && !has_flag(node))
 		return ;
+	if (num >= 0 && node->show_sign && !un_sign)
+		sign = '+';
+	else if (num == -2147483648 && !un_sign)
+	{
+		node->show_sign = 0;
+		num = ((num + 1) * -1) + 1;
+	}
+	else if (num < 0 && !un_sign)
+	{
+		node->show_sign = 1;
+		num = -num;
+		sign = '-';
+	}
 	if (!un_sign)
-	{
-		if (num >= 0 && node->show_sign)
-			sign = '+';
-		else if (num == -2147483648)
-		{
-			node->show_sign = 0;
-			num = ((num + 1) * -1) + 1;
-		}
-		else if (num < 0)
-		{
-			node->show_sign = 1;
-			num = -num;
-			sign = '-';
-		}
 		node->result = ft_itoa(num);
-	}
 	else
-	{
-		unum = (unsigned int)num;
-		node->result = ft_uitoa(unum);
-	}
+		node->result = ft_uitoa((unsigned int)num);
 	check_combination(node);
 	convert_modifiers(node, sign);
 	ft_putstring(node, node->result);
