@@ -71,3 +71,16 @@ void	check_combination(t_printf *node)
 	if (node->left_justify > 0 && node->show_sign)
 		node->left_justify--;
 }
+
+void	check_char_combination(t_printf *node)
+{
+	if (node->zero_padding)
+	{
+		node->width = node->zero_padding;
+		node->zero_padding = 0;
+	}
+	node->show_sign = 0;
+	node->space = 0;
+	node->dot_precision = 0;
+	node->prefixes = 0;
+}

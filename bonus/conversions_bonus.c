@@ -34,8 +34,6 @@ void	convert_modifiers(t_printf *node, char sign)
 	}
 	else if (node->space)
 		node->result = add_sign(node, ' ', 1, ft_strlen(node->result));
-	ft_putstring(node, node->result);
-	free(node->result);
 }
 
 char	*add_sign(t_printf *node, char sign, int add_extra, int len)

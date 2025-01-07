@@ -32,7 +32,7 @@ int	ft_printf(char const *str, ...)
 			}
 		}
 		else
-			ft_putchars(node, *str);
+			ft_printchars(node, *str);
 		str++;
 	}
 	free_node(node);
@@ -92,7 +92,7 @@ void	call_modifiers(t_printf *node, va_list args)
 	if (node->modifier == 'c')
 		ft_putchars(node, va_arg(args, int));
 	else if (node->modifier == 's')
-		ft_putstring(node, va_arg(args, char *));
+		ft_putstring(node, va_arg(args, char *), 1);
 	else if (node->modifier == 'd' || node->modifier == 'i')
 		ft_putnumber(node, va_arg(args, long), 0);
 	else if (node->modifier == 'u')
@@ -104,5 +104,17 @@ void	call_modifiers(t_printf *node, va_list args)
 	else if (node->modifier == 'p')
 		ft_putpointer(node, va_arg(args, void *));
 	else if (node->modifier == '%')
-		ft_putchars(node, '%');
+		ft_printchars(node, '%');
+}
+
+void	ft_printchars(t_printf *node, char c)
+{
+	int	len;
+
+	len = ft_strlen(node->full_str);
+	node->full_str = ft_realloc(node->full_str, len + 1, len + 2);
+	node->full_str[len] = c;
+	node->full_str[len + 1] = '\0';
+	node->len = ft_strlen(node->full_str);
+	write(1, &c, 1);
 }

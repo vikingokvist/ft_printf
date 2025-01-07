@@ -44,9 +44,10 @@ int			ft_printf(const char *format, ...);
 char		*parse_modifiers(t_printf *node, char *str);
 char		*assign_padding(t_printf *node, char *str, int *padding);
 void		call_modifiers(t_printf *node, va_list args);
+void		ft_printchars(t_printf *node, char c);
 //--------------------------------------------------------------FUNCTIONS
 void		ft_putchars(t_printf *node, char c);
-void		ft_putstring(t_printf *node, char *str);
+void		ft_putstring(t_printf *node, char *str, int mode);
 void		ft_putnumber(t_printf *node, int num, int un_sign);
 void		ft_puthex(t_printf *node, char *hex, unsigned long nb, char prefix);
 void		ft_putpointer(t_printf *node, void *ptr);
@@ -64,5 +65,6 @@ int			is_modifier(char mod);
 int			has_flag(t_printf *node);
 int			ft_is_hex_or_num(int c);
 void		check_combination(t_printf *node);
+void		check_char_combination(t_printf *node);
 
 #endif
