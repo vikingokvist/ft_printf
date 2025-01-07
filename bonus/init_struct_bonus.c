@@ -28,6 +28,7 @@ t_printf	*init_struct(t_printf *node)
 
 void	init_node(t_printf *node)
 {
+	node->has_flag = 0;
 	node->prefixes = 0;
 	node->space = 0;
 	node->show_sign = 0;
@@ -36,6 +37,8 @@ void	init_node(t_printf *node)
 	node->left_justify = 0;
 	node->zero_padding = 0;
 	node->modifier = 0;
+	if (node->result)
+		free(node->result);
 	node->result = NULL;
 }
 

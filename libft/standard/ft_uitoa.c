@@ -20,7 +20,7 @@ char	*ft_uitoa(unsigned int n)
 
 	temp = n;
 	len = 1;
-	while (temp)
+	while (temp > 10)
 	{
 		temp /= 10;
 		len++;

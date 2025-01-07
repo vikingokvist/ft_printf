@@ -12,6 +12,18 @@
 
 #include "ft_printf.h"
 
+int	has_flag(t_printf *node)
+{
+	return (node->dot_precision
+		|| node->left_justify
+		|| node->zero_padding
+		|| node->width
+		|| node->prefixes
+		|| node->space
+		|| node->prefixes
+		|| node->show_sign);
+}
+
 int	is_modifier(char mod)
 {
 	return (mod == 'c'

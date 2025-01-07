@@ -35,6 +35,7 @@ typedef struct s_printf
 	int		show_sign;
 	int		prefixes;
 	int		space;
+	int		has_flag;
 }	t_printf;
 
 //--------------------------------------------------------------MAIN
@@ -67,6 +68,7 @@ char	*add_sign(t_printf *node, char sign, int add_extra, int len);
 char	*add_prefix(t_printf *node, char sign);
 //--------------------------------------------------------------UTILS_BONUS
 int		is_modifier(char mod);
+int		has_flag(t_printf *node);
 int		ft_is_hex_or_num(int c);
 void	check_combination(t_printf *node);
 

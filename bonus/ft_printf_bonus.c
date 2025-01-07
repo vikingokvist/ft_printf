@@ -63,6 +63,7 @@ char	*parse_modifiers(t_printf *node, char *str)
 			padding = &node->width;
 		if (padding != NULL)
 			str = assign_padding(node, str, padding);
+		node->has_flag = 1;
 		str++;
 	}
 	node->modifier = *str;
